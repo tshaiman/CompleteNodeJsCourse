@@ -43,7 +43,7 @@ app.get('/about',(req,res) => {
     })
 })
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || 1337;
 app.listen(port,()=>{
-    console.log("Server is up on port 3000")
+    console.log("Server is up on port " +port)
 })
