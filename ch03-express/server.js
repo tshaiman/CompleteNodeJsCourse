@@ -5,7 +5,7 @@ const fs = require('fs')
 
 var app = express()
 
-//hbs view engine
+//hbs view engine , with static
 hbs.registerPartials(__dirname + '/views/partials')
 hbs.registerHelper('getCurrentYear',()=>{
     return new Date().getFullYear() 
@@ -13,7 +13,7 @@ hbs.registerHelper('getCurrentYear',()=>{
 app.set('view engine','hbs')
 
 
-//express middelware
+//express middelware 
 app.use((req,res,next)=>{
     var now = new Date().toString();
     var log = `${now}: ${req.method} ${req.url}`
