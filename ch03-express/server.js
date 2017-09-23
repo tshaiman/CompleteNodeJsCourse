@@ -43,7 +43,7 @@ app.get('/about',(req,res) => {
     })
 })
 
-
-app.listen(80,()=>{
+var port = process.env.PORT || 3000;
+app.listen(port,()=>{
     console.log("Server is up on port 3000")
 })
