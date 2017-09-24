@@ -1,6 +1,9 @@
 const util  = require('./util')
 const expect = require('expect')
 
+describe ('Utils', ()=>{
+
+
 it('Should add two numbers',()=>{
     var res = util.add(1,3)
     expect(res).toBe(4,"it should be 4").toBeA('number')
@@ -27,12 +30,18 @@ it('verify user first last name' , () =>{
     expect(modified).toInclude({firstName:"Tomer",lastName:"Shaiman"})
 })
 
-it('test addAsync' ,(done)=>{
-    util.addAsync(3,5).then((res)=>{
-        expect(res).toBe(8)
-        done();
-    },(e)=>{
-        expect(false).toExists()
-        done();
+describe('#async',()=>{
+    it('test addAsync' ,(done)=>{
+        util.addAsync(3,5).then((res)=>{
+            expect(res).toBe(8)
+            done();
+        },(e)=>{
+            expect(false).toExists()
+            done();
+        })
     })
 })
+
+
+
+}) //describe
