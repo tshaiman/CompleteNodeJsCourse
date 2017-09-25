@@ -1,6 +1,7 @@
 var mongoose = require('mongoose')
 
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost:27017/TodoApp')
+var mongoHost = process.env.MONGO_HOST
+mongoose.connect(mongoHost)
 
 module.exports = {mongoose}
