@@ -1,6 +1,5 @@
-var env = process.env.NODE_ENV || 'development';
 
- console.log("=====" , env)
+var env = process.env.NODE_ENV || 'development';
 
 if(env == 'development') {
   process.env.PORT = 3000;
@@ -11,6 +10,7 @@ if(env == 'development') {
 }
 
 const _ = require('lodash');
+require('dotenv').config()
 var express = require('express')
 var bodyParser = require('body-parser')
 const {ObjectID} = require('mongodb');
@@ -20,7 +20,7 @@ var { User } = require('./models/user')
 
 
 var app = express();
-const port = process.env.PORT ;
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json())
 
@@ -35,6 +35,7 @@ app.post('/todos', (req, res) => {
         res.send(doc);
     }, (e) => {
         res.status(400).send(e)
+        //console.log("Could not save document" ,e)
     })
 });
 
@@ -111,6 +112,7 @@ app.get('/todos/:id', (req, res) => {
     })
   });
 
+<<<<<<< HEAD
   app.post('/users', (req, res) => {
     var body = _.pick(req.body, ['email', 'password']);
     var user = new User(body);
@@ -123,6 +125,10 @@ app.get('/todos/:id', (req, res) => {
 
 app.listen(port, () => {
     console.log("Starting Server on port " + port)
+=======
+app.listen(3000, () => {
+    console.log("Starting Server on port 3000")
+>>>>>>> cde2a38c4d01715e39c0a778cd138b77573ba754
 })
 
 module.exports = { app };
