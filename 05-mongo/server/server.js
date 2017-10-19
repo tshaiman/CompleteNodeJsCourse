@@ -3,15 +3,13 @@ var env = process.env.NODE_ENV || 'development';
 
 if(env == 'development') {
   process.env.PORT = 3000;
-  process.env.MONGODB_URI =  "mongodb://localhost:27017/TodoApp"
-  console.log(process.env.MONGODB_URI);
+  process.env.MONGODB_URI =  "mongodb://localhost:27017/TodoApp";
 }else if (env == 'test') {
   process.env.MONGODB_URI =  "mongodb://localhost:27017/TodoAppTest";
-}
+};
 
 const _ = require('lodash');
-require('dotenv').config()
-var express = require('express')
+var express = require('express');
 var bodyParser = require('body-parser')
 const {ObjectID} = require('mongodb');
 var { mongoose } = require('./db/mongoose')
@@ -35,7 +33,7 @@ app.post('/todos', (req, res) => {
         res.send(doc);
     }, (e) => {
         res.status(400).send(e)
-        //console.log("Could not save document" ,e)
+        console.log("Could not save document" ,e)
     })
 });
 
@@ -112,23 +110,24 @@ app.get('/todos/:id', (req, res) => {
     })
   });
 
-<<<<<<< HEAD
+
   app.post('/users', (req, res) => {
     var body = _.pick(req.body, ['email', 'password']);
     var user = new User(body);
-    user.save().then((doc) => { 
-        res.send(doc);
+
+    
+    user.save().then(() => { 
+      return user.generateAuthToken();
+    }).then((token)=>{
+      res.header('x-auth',token).send(user);
     }).catch((e) => {
-        res.status(400).send(e)
+      console.log("could not save user",e)  ;
+      res.status(400).send(e)
     });
 });
 
 app.listen(port, () => {
     console.log("Starting Server on port " + port)
-=======
-app.listen(3000, () => {
-    console.log("Starting Server on port 3000")
->>>>>>> cde2a38c4d01715e39c0a778cd138b77573ba754
-})
+});
 
 module.exports = { app };
