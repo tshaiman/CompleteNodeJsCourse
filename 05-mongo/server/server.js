@@ -15,6 +15,7 @@ const {ObjectID} = require('mongodb');
 var { mongoose } = require('./db/mongoose')
 var { Todo } = require('./models/todo')
 var { User } = require('./models/user')
+var { authenticate } = require('./middleware/authenticate')
 
 
 var app = express();
@@ -114,8 +115,6 @@ app.get('/todos/:id', (req, res) => {
   app.post('/users', (req, res) => {
     var body = _.pick(req.body, ['email', 'password']);
     var user = new User(body);
-
-    
     user.save().then(() => { 
       return user.generateAuthToken();
     }).then((token)=>{
@@ -124,6 +123,10 @@ app.get('/todos/:id', (req, res) => {
       console.log("could not save user",e)  ;
       res.status(400).send(e)
     });
+});
+
+app.get('/users/me', authenticate,(req,res) => {
+  res.send(req.user);
 });
 
 app.listen(port, () => {
